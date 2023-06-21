@@ -2,6 +2,7 @@
 package com.example.EmployeeManagementSystem.entities;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -22,7 +23,7 @@ public class Employee {
     @ManyToOne
     private Department department;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     List<TimeReport> timeReports;
     
     public Employee() {

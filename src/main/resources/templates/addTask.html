@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Course page</title>
+
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+    </head>
+    <body>
+
+        <form id="add-department" class="container-fluid text-center" th:action="@{/company/employees/task/save}" method="post" th:object="${timeReport}"
+              style="max-width: 700px; margin: 0 auto;">
+
+            <div class="border rounded p-3">
+
+                <div class="form-group row">
+                    
+                    <div id="add-div" class="col-sm-6">
+                        <label id="name-label" class="col-sm-4 col-form-label">Date</label>
+                        <input type="date" th:field="*{date}" class="form-control"/>
+                        
+                        <label id="name-label" class="col-sm-4 col-form-label">Hours</label>
+                        <input type="number" th:field="*{hours}" class="form-control"/>
+                        
+                        <label id="name-label" class="col-sm-4 col-form-label">Task(s)</label>
+                        <input type="text" th:field="*{tasks}" class="form-control"/>
+
+                        
+                    </div>
+
+
+                    <div class="col-sm-12" >
+                        <button id="submit-button" class="btn btn-primary m2 btn-dark rounded"  type="submit">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </body>
+</html>

@@ -23,9 +23,9 @@ public class DepartmentController {
     public String getHomePage(Model model) {
 
         List<Department> departments = departmentService.getAllDepartments();
-
+        
         model.addAttribute("departments", departments);
-        return "adminhome";
+        return "departments";
     }
 
     public DepartmentController(DepartmentService companyService,
@@ -42,11 +42,11 @@ public class DepartmentController {
         return "addDepartment";
     }
 
-    @PostMapping("/company/department/save")
+    @PostMapping("/company/admin/department/save")
     public String addDepartment(Department department) {
         departmentService.addDepartment(department);
 
-        return "redirect:/company/home";
+        return "redirect:/company/admin/department/all";
     }
 
     @GetMapping("/company/admin/department/edit/{departmentId}")
@@ -61,7 +61,7 @@ public class DepartmentController {
         return "editDepartment";
     }
 
-    @PostMapping("/company/department/add/employee/{departmentId}")
+    @PostMapping("/company/admin/department/add/employee/{departmentId}")
     public String addEmployeeToDepartment(Employee employee, @PathVariable("departmentId") int departmentId) {
         System.out.println(departmentId);
         System.out.println(employee.getFirstname());

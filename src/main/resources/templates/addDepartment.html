@@ -19,7 +19,7 @@
             </ul>
         </nav>
 
-        <form id="add-department" class="container-fluid text-center" th:action="@{/company/department/save}" method="post" th:object="${department}"
+        <form id="add-department" class="container-fluid text-center" th:action="@{/company/admin/department/save}" method="post" th:object="${department}"
               style="max-width: 700px; margin: 0 auto;">
             <input type="hidden" th:field="*{id}">
             <div class="border rounded p-3">

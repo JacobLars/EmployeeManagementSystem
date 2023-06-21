@@ -1,15 +1,76 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <html>
+        <head>
+            <title>Employees</title>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+            <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+        </head>
+        <body>
+            <div id="employee-info">
+                <img id="employee-image" th:src="${imageUrl}">
+                <p style="width: 100px;" th:text="'Welcome ' + ${firstname} + '!'"></p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a th:href="@{'/company/employees/task/add/' + ${employeeId}}">Report Activity</a></li>
+
+                </ul>
+
+            </nav>
+
+        </body>
+    </html>
+    <style>
+        body{
+            background-image: url('https://wallpaperaccess.com/full/733878.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        #employee-info{
+            margin-left: 2%;
+        }
+        
+        #employee-info p{
+            color: white;
+        }
+        
+        #employee-image{
+            height: 80px;
+            width: 80px;
+            border-radius: 50%;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            width: 50%;
+            justify-content: center;
+            background-color: #333;
+
+        }
+
+        li {
+
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #111;
+            color: white;
+        }
+    </style>

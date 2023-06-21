@@ -9,13 +9,23 @@
         <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
     </head>
     <body>
-
-        <form class="container-fluid text-center" th:action="@{/company/department/save}" method="post" th:object="${department}"
+        
+           <nav>
+                <ul>
+                    <li><a th:href="@{'/company/admin/department/all'}">Departments</a></li>
+                    <li><a th:href="@{'/company/admin/department/add'}">Add Department</a></li>
+                    <li><a th:href="@{'/company/admin/employees/all'}">Employees</a></li>
+                    <li  id="logout-button"><a th:href="@{'/logout'}">Logout</a><li>
+                </ul>
+                
+            </nav>
+        
+        <form class="container-fluid text-center" th:action="@{/company/admin/department/save}" method="post" th:object="${department}"
               style="max-width: 700px; margin: 0 auto;">
             <div class="border border-secondary rounded p-3">
                 <input type="hidden" th:field="*{id}">
                 <div class="form-group row">
-                    <label class="col-sm-4 col-form-label">Edit Name:</label>
+                    <label class="col-sm-4 col-form-label">Edit Department:</label>
                     <div class="col-sm-6">
                         <input type="text" th:field="*{name}" class="form-control"/>
                     </div>
@@ -28,11 +38,11 @@
             </div>
 
         </form>
-
-        <form class="container-fluid text-center" th:action="@{'/company/department/add/employee/' + ${departmentId}}" method="post" th:object="${employee}"
+       
+        <form class="container-fluid text-center" th:action="@{'/company/admin/department/add/employee/' + ${departmentId}}" method="post" th:object="${employee}"
                   style="max-width: 700px; margin: 0 auto;">
                 <div class="border border-secondary rounded p-3">
-
+                     <h5 id="add-header">Add Employee to Department</h5>
                     <div class="form-group row">
                         <label class="col-sm-4 col-form-label">E-mail</label>
                         <div class="col-sm-6">
@@ -66,7 +76,7 @@
 
                         <label class="col-sm-4 col-form-label">Is admin</label>
                         <div class="col-sm-6">
-                            <input type="checkbox" th:field="*{isAdmin}" class="form-control"/>
+                            <input id="is-admin" type="checkbox" th:field="*{isAdmin}" class="form-control"/>
                         </div>
 
                         <div class="col-sm-12" >
@@ -79,5 +89,52 @@
     </body>
 </html>
 <style>
+ body{
+        background-image: url('https://wallpaperaccess.com/full/733878.png');
+        background-repeat: no-repeat;
+        background-size: cover;
 
+    }
+    
+     ul {
+            list-style-type: none;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            width: 50%;
+            justify-content: center;
+            background-color: #333;
+
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #111;
+        }
+        
+        form div{
+            background-color: #e8e8e8;
+        }
+        
+        #add-header{
+            margin-left: 15%;
+        }
+        
+        input{
+            margin: 2px;
+        }
+        
+        #is-admin{
+            height: 20px;
+        }
+        
 </style>

@@ -22,6 +22,7 @@ public class TimeReport {
     private Employee employee;
     
     public TimeReport() {
+        this.month = LocalDate.now().getMonth().toString();
     }
 
     public TimeReport(String date, Double hours, String tasks) {
@@ -35,7 +36,11 @@ public class TimeReport {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
+    
     public String getMonth() {
         return month;
     }
