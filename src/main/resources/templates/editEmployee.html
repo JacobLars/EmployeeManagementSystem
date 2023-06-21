@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Edit Department</title>
+
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+    </head>
+    <body>
+
+        <form class="container-fluid text-center" th:action="@{'/company/employees/save'}" method="post" th:object="${employee}"
+                  style="max-width: 700px; margin: 0 auto;">
+                <div class="border border-secondary rounded p-3">
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">E-mail</label>
+                        <div class="col-sm-6">
+                            <input type="email" th:field="*{email}" class="form-control"/>
+                        </div>
+
+                        <label class="col-sm-4 col-form-label">Firstname</label>
+                        <div class="col-sm-6">
+                            <input type="text" th:field="*{firstname}" class="form-control"/>
+                        </div>
+
+                        <label class="col-sm-4 col-form-label">Lastname</label>
+                        <div class="col-sm-6">
+                            <input type="text" th:field="*{lastname}" class="form-control"/>
+                        </div>
+
+                        <label class="col-sm-4 col-form-label">Image url</label>
+                        <div class="col-sm-6">
+                            <input type="text" th:field="*{imageUrl}" class="form-control"/>
+                        </div>
+
+                        <label class="col-sm-4 col-form-label">Age</label>
+                        <div class="col-sm-6">
+                            <input type="number" th:field="*{age}" class="form-control"/>
+                        </div>
+
+                        <label class="col-sm-4 col-form-label">Is admin</label>
+                        <div class="col-sm-6">
+                            <input type="checkbox" th:field="*{isAdmin}" class="form-control"/>
+                        </div>
+
+                        <div class="col-sm-12" >
+                            <button class="btn btn-primary m2 btn-dark rounded"  type="submit">Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+    </body>
+</html>
+<style>
+
+</style>

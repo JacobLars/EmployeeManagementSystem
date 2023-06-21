@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Course page</title>
+
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+    </head>
+    <body>
+
+        <nav>
+            <ul>
+                <li><a th:href="@{'/company/admin/department/all'}">Departments</a></li>
+                <li><a th:href="@{'/company/admin/department/add'}">Add Department</a></li>
+                <li><a th:href="@{'/company/admin/employees/all'}">Employees</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
+
+        <form id="add-department" class="container-fluid text-center" th:action="@{/company/department/save}" method="post" th:object="${department}"
+              style="max-width: 700px; margin: 0 auto;">
+            <input type="hidden" th:field="*{id}">
+            <div class="border rounded p-3">
+
+                <div class="form-group row">
+                    
+                    <div id="add-div" class="col-sm-6">
+                        <label id="name-label" class="col-sm-4 col-form-label">Name</label>
+                        <input type="text" th:field="*{name}" class="form-control"/>
+                    </div>
+
+
+                    <div class="col-sm-12" >
+                        <button id="submit-button" class="btn btn-primary m2 btn-dark rounded"  type="submit">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+
+    </body>
+</html>
+<style>
+    body{
+        background-image: url('https://wallpaperaccess.com/full/733878.png');
+    }
+
+    ul {
+        list-style-type: none;
+        margin: 0 auto;
+        margin-bottom: 10px;
+        padding: 0;
+        overflow: hidden;
+        display: flex;
+        width: 50%;
+        justify-content: center;
+        background-color: #333;
+
+    }
+
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+    li a:hover {
+        background-color: #111;
+    }
+
+    #add-department{
+        background-color: white;
+    }
+
+    #submit-button{
+     
+        margin: 0 auto;
+        margin-top: 1%;
+    }
+    #submit-button:hover{
+        cursor: pointer;
+    }
+    
+    #add-div{
+        display: flex;
+        margin: 0 auto;
+    }
+
+</style>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <html>
+        <head>
+            <title>Departments</title>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+            <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+        </head>
+        <body>
+            <nav>
+                <ul>
+                    <li><a th:href="@{'/company/admin/department/all'}">Departments</a></li>
+                    <li><a th:href="@{'/company/admin/department/add'}">Add Department</a></li>
+                    <li><a th:href="@{'/company/admin/employees/all'}">Employees</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </nav>
+            <div>
+                <table class="table" id="department-table">
+                    <thead class="table-responsive">
+                        <tr>
+                            <th>ID</th>
+                            <th>Department</th>
+                            <th>Operations</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="table-light">
+                    <th:block th:each="department : ${departments}">
+                        <tr>
+                            <td th:text="${department.id}"></td>
+                            <td th:text="${department.name}"></td>
+                            <td>
+                                <a class="btn btn-primary m2" th:href="@{'/company/admin/department/edit/' + ${department.id}}">Edit</a>
+                                <a class="btn btn-primary m2" th:href="@{'/company/admin/department/' + ${department.id} + '/employees'}">Employees</a>
+                            </td>
+                        </tr>
+                    </th:block>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+        </body>
+    </html>
+    <style>
+        body{
+            background-image: url('https://wallpaperaccess.com/full/733878.png');
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0 auto;
+            margin-bottom: 10px;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            width: 50%;
+            justify-content: center;
+            background-color: #333;
+
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #111;
+        }
+
+        th{
+            color: white;
+            background-color: #333;
+
+        }
+        #department-table{
+            width: 25%;
+            margin: 0 auto;
+
+            box-shadow: 1px 1px 1px black;
+        }
+
+
+    </style>
