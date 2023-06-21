@@ -25,7 +25,7 @@ public class DepartmentController {
         List<Department> departments = departmentService.getAllDepartments();
 
         model.addAttribute("departments", departments);
-        return "home";
+        return "adminhome";
     }
 
     public DepartmentController(DepartmentService companyService,

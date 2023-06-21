@@ -1,6 +1,5 @@
 package com.example.EmployeeManagementSystem.security;
 
-
 import static com.example.EmployeeManagementSystem.security.UserRole.ADMIN;
 import static com.example.EmployeeManagementSystem.security.UserRole.EMPLOYEE;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +15,18 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    
+
     private final PasswordEncoder PasswordEncoder;
-    
+
     private final CustomAuthenticationSuccessHandler authenticationSuccessHandler;
-    
+
     private final CustomUserDetailsService customUserDetailsService;
-    
+
     @Autowired
     public SecurityConfig(PasswordEncoder PasswordEncoder,
             CustomAuthenticationSuccessHandler authenticationSuccessHandler,
@@ -39,8 +38,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        
-        http.authorizeRequests()
+
+        http
+                .authorizeRequests()
                 .antMatchers("/company/admin/**").hasRole(ADMIN.name())
                 .antMatchers("/company/employee/**").hasRole(EMPLOYEE.name())
                 .anyRequest()
@@ -49,11 +49,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .formLogin()
-                .successHandler(authenticationSuccessHandler);
-                //.defaultSuccessUrl("/company/admin/department/all", true);
-        
-       
-    
+                .loginPage("/login")
+                .permitAll()
+                .successHandler(authenticationSuccessHandler)
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
+                .clearAuthentication(true)
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessUrl("/login");
+
     }
 
     @Override
@@ -62,4 +71,3 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 }
-

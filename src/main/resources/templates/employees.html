@@ -11,13 +11,15 @@
             <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
         </head>
         <body>
+            
             <nav>
                 <ul>
                     <li><a th:href="@{'/company/admin/department/all'}">Departments</a></li>
                     <li><a th:href="@{'/company/admin/department/add'}">Add Department</a></li>
                     <li><a th:href="@{'/company/admin/employees/all'}">Employees</a></li>
-                    <li><a href="#about">About</a></li>
+                    <li  id="logout-button"><a th:href="@{'/logout'}">Logout</a><li>
                 </ul>
+                
             </nav>
             <div>
                 <table class="table" id="employees-table">
@@ -59,8 +61,24 @@
     <style>
         body{
             background-image: url('https://wallpaperaccess.com/full/733878.png');
+            background-repeat: no-repeat;
+            background-size: cover;
         }
-
+        
+        #logout-button{
+            
+            background-color: #db3d3d;
+            
+        }
+        
+        #logout-button a:hover{
+            background-color: #c23232;
+        }
+        
+        #logout-button a{
+            color: black;
+        }
+        
         ul {
             list-style-type: none;
             margin: 0 auto;
@@ -71,11 +89,11 @@
             width: 50%;
             justify-content: center;
             background-color: #333;
-            
+
         }
 
         li {
-           
+
         }
 
         li a {
@@ -88,6 +106,7 @@
 
         li a:hover {
             background-color: #111;
+            color: white;
         }
 
         th{
