@@ -10,12 +10,19 @@
     </head>
     <body>
 
+        <div id="employee-info">
+            <img id="employee-image" th:src="${imageUrl}">
+            <p style="width: 100px;" th:text="'Welcome ' + ${firstname} + '!'"></p>
+            <a id='logout-button' th:href="@{/logout}">Logout</a>
+        </div>
+
         <nav>
             <ul>
+                <li><a th:href="@{'/company/admin/home'}">Home</a></li>
                 <li><a th:href="@{'/company/admin/department/all'}">Departments</a></li>
                 <li><a th:href="@{'/company/admin/department/add'}">Add Department</a></li>
                 <li><a th:href="@{'/company/admin/employees/all'}">Employees</a></li>
-                <li><a href="#about">About</a></li>
+                <li><a th:href="@{'/company/employees/task/add/' + ${employeeId}}">Report Activity</a></li>
             </ul>
         </nav>
 
@@ -25,7 +32,7 @@
             <div class="border rounded p-3">
 
                 <div class="form-group row">
-                    
+
                     <div id="add-div" class="col-sm-6">
                         <label id="name-label" class="col-sm-4 col-form-label">Name</label>
                         <input type="text" th:field="*{name}" class="form-control"/>
@@ -49,6 +56,31 @@
         background-size: cover;
     }
 
+            #employee-info{
+            margin-left: 2%;
+        }
+
+        #employee-info p{
+            color: white;
+        }
+
+        #employee-image{
+            height: 80px;
+            width: 80px;
+            border-radius: 50%;
+        }
+
+      #logout-button{
+            color: black;
+            background-color: #db3d3d;
+            padding: 5px;
+
+        }
+
+        #logout-button:hover{
+            background-color: #c23232;
+        }
+    
     ul {
         list-style-type: none;
         margin: 0 auto;
@@ -79,14 +111,14 @@
     }
 
     #submit-button{
-     
+
         margin: 0 auto;
         margin-top: 1%;
     }
     #submit-button:hover{
         cursor: pointer;
     }
-    
+
     #add-div{
         display: flex;
         margin: 0 auto;

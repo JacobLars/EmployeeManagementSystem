@@ -10,50 +10,134 @@
     </head>
     <body>
 
+        <div id="employee-info">
+            <img id="employee-image" th:src="${imageUrl}">
+            <p style="width: 100px;" th:text="'Welcome ' + ${firstname} + '!'"></p>
+            <a id='logout-button' th:href="@{/logout}">Logout</a>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a th:href="@{'/company/admin/home'}">Home</a></li>
+                <li><a th:href="@{'/company/admin/department/all'}">Departments</a></li>
+                <li><a th:href="@{'/company/admin/department/add'}">Add Department</a></li>
+                <li><a th:href="@{'/company/admin/employees/all'}">Employees</a></li>
+                <li><a th:href="@{'/company/employees/task/add/' + ${employeeId}}">Report Activity</a></li>
+            </ul>
+        </nav>
+
         <form class="container-fluid text-center" th:action="@{'/company/employees/save'}" method="post" th:object="${employee}"
-                  style="max-width: 700px; margin: 0 auto;">
-                <div class="border border-secondary rounded p-3">
+              style="max-width: 700px; margin: 0 auto;">
+            <div class="border border-secondary rounded p-3">
 
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label">E-mail</label>
-                        <div class="col-sm-6">
-                            <input type="email" th:field="*{email}" class="form-control"/>
-                        </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label">E-mail</label>
+                    <div class="col-sm-6">
+                        <input type="email" th:field="*{email}" class="form-control"/>
+                    </div>
 
-                        <label class="col-sm-4 col-form-label">Firstname</label>
-                        <div class="col-sm-6">
-                            <input type="text" th:field="*{firstname}" class="form-control"/>
-                        </div>
+                    <label class="col-sm-4 col-form-label">Firstname</label>
+                    <div class="col-sm-6">
+                        <input type="text" th:field="*{firstname}" class="form-control"/>
+                    </div>
 
-                        <label class="col-sm-4 col-form-label">Lastname</label>
-                        <div class="col-sm-6">
-                            <input type="text" th:field="*{lastname}" class="form-control"/>
-                        </div>
+                    <label class="col-sm-4 col-form-label">Lastname</label>
+                    <div class="col-sm-6">
+                        <input type="text" th:field="*{lastname}" class="form-control"/>
+                    </div>
 
-                        <label class="col-sm-4 col-form-label">Image url</label>
-                        <div class="col-sm-6">
-                            <input type="text" th:field="*{imageUrl}" class="form-control"/>
-                        </div>
+                    <label class="col-sm-4 col-form-label">Image url</label>
+                    <div class="col-sm-6">
+                        <input type="text" th:field="*{imageUrl}" class="form-control"/>
+                    </div>
 
-                        <label class="col-sm-4 col-form-label">Age</label>
-                        <div class="col-sm-6">
-                            <input type="number" th:field="*{age}" class="form-control"/>
-                        </div>
+                    <label class="col-sm-4 col-form-label">Age</label>
+                    <div class="col-sm-6">
+                        <input type="number" th:field="*{age}" class="form-control"/>
+                    </div>
 
-                        <label class="col-sm-4 col-form-label">Is admin</label>
-                        <div class="col-sm-6">
-                            <input type="checkbox" th:field="*{isAdmin}" class="form-control"/>
-                        </div>
+                    <label class="col-sm-4 col-form-label">Is admin</label>
+                    <div class="col-sm-6">
+                        <input type="checkbox" th:field="*{isAdmin}" class="form-control"/>
+                    </div>
 
-                        <div class="col-sm-12" >
-                            <button class="btn btn-primary m2 btn-dark rounded"  type="submit">Submit</button>
-                        </div>
+                    <div class="col-sm-12" >
+                        <button class="btn btn-primary m2 btn-dark rounded"  type="submit">Submit</button>
                     </div>
                 </div>
+            </div>
 
-            </form>
+        </form>
     </body>
 </html>
 <style>
+    body{
+        background-image: url('https://wallpaperaccess.com/full/733878.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    #logout-button{
+        color: black;
+        background-color: #db3d3d;
+        padding: 5px;
+
+    }
+
+    #logout-button:hover{
+        background-color: #c23232;
+    }
+
+    #employee-info{
+        margin-left: 2%;
+    }
+
+    #employee-info p{
+        color: white;
+    }
+
+    #employee-image{
+        height: 80px;
+        width: 80px;
+        border-radius: 50%;
+    }
+
+    form div{
+        background-color: #e8e8e8;
+    }
+
+
+    input{
+        margin: 2px;
+    }
+
+    #is-admin{
+        height: 20px;
+    }
+
+    ul {
+        list-style-type: none;
+        margin: 0 auto;
+        margin-bottom: 10px;
+        padding: 0;
+        overflow: hidden;
+        display: flex;
+        width: 50%;
+        justify-content: center;
+        background-color: #333;
+
+    }
+
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+    li a:hover {
+        background-color: #111;
+    }
 
 </style>

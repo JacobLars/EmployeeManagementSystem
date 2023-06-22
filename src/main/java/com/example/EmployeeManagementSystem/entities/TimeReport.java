@@ -13,7 +13,6 @@ public class TimeReport {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String month;
     private String date;
     private Double hours;
     private String tasks;
@@ -22,11 +21,10 @@ public class TimeReport {
     private Employee employee;
     
     public TimeReport() {
-        this.month = LocalDate.now().getMonth().toString();
+
     }
 
     public TimeReport(String date, Double hours, String tasks) {
-        this.month = LocalDate.now().getMonth().toString();
         this.date = date;
         this.hours = hours;
         this.tasks = tasks;
@@ -38,15 +36,6 @@ public class TimeReport {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    
-    public String getMonth() {
-        return month;
-    }
-
-    public void setMonth(String month) {
-        this.month = month;
     }
 
     public String getDate() {

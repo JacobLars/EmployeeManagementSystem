@@ -19,7 +19,6 @@ public class DepartmentService {
 
     public void addEmployeeToDepartment(Employee employee, int departmentId){
         
-        System.out.println(employee.getEmail());
         Department department = departmentRepository.findById(departmentId).get();
             
         employee.setDepartment(department);

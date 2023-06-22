@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Course page</title>
+
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet" crossorigin="anonymous">
+    </head>
+
+    <div id="employee-info">
+        <img id="employee-image" th:src="${imageUrl}">
+        <p style="width: 100px;" th:text="'Welcome ' + ${firstname} + '!'"></p>
+        <a id='logout-button' th:href="@{/logout}">Logout</a>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a th:href="@{'/company/admin/home'}">Home</a></li>
+            <li><a th:href="@{'/company/admin/department/all'}">Departments</a></li>
+            <li><a th:href="@{'/company/admin/department/add'}">Add Department</a></li>
+            <li><a th:href="@{'/company/admin/employees/all'}">Employees</a></li>
+            <li><a th:href="@{'/company/employees/task/add/' + ${employeeId}}">Report Activity</a></li>
+        </ul>
+    </nav>
+
+    <body>
+        <table class="table" id="report-table">
+            <thead class="table-responsive">
+            <div id="header-div">
+                <p th:text="${month}"></p>
+            </div>
+            <tr>
+                <th>Date</th>
+                <th>Hours</th>
+                <th>Tasks</th>
+            </tr>
+        </thead>
+
+        <tbody class="table-light">
+        <th:block th:each="timeReport : ${timeReports}">
+            <tr>
+
+                <td th:text="${timeReport.date}"></td>
+                <td th:text="${timeReport.hours}"></td>
+                <td th:text="${timeReport.tasks}"></td>
+
+
+            </tr>
+        </th:block>
+
+    </tbody>
+
+</table>
+</body>
+</html>
+<style>
+
+    body{
+        background-image: url('https://wallpaperaccess.com/full/733878.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+
+    #employee-info{
+        margin-left: 2%;
+    }
+
+    #employee-info p{
+        color: white;
+    }
+
+    #employee-image{
+        height: 80px;
+        width: 80px;
+        border-radius: 50%;
+    }
+
+    #logout-button{
+        color: black;
+        background-color: #db3d3d;
+        padding: 5px;
+
+    }
+
+    #logout-button:hover{
+        background-color: #c23232;
+    }
+
+    ul {
+        list-style-type: none;
+        margin: 0 auto;
+        margin-bottom: 10px;
+        padding: 0;
+        overflow: hidden;
+        display: flex;
+        width: 50%;
+        justify-content: center;
+        background-color: #333;
+
+    }
+
+    li {
+
+    }
+
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+    li a:hover {
+        background-color: #111;
+        color: white;
+    }
+
+
+    #report-table{
+        width: 50%;
+        margin: 0 auto;
+
+    }
+
+
+    #header-div{
+        background-color: #333;
+        width: 15%;
+        margin-left: 25%;
+        margin-top: 2%;
+        padding: 1px;
+    }
+
+    #header-div p{
+        color: white;
+        font-size: larger;
+        margin: 1px;
+
+    }
+
+    th{
+        background-color: #333;
+        color: white;
+    }
+
+
+</style>

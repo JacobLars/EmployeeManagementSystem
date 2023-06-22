@@ -4,6 +4,7 @@ import com.example.EmployeeManagementSystem.entities.Department;
 import com.example.EmployeeManagementSystem.entities.Employee;
 import com.example.EmployeeManagementSystem.services.DepartmentService;
 import com.example.EmployeeManagementSystem.services.EmployeeService;
+import java.security.Principal;
 import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,10 +21,14 @@ public class DepartmentController {
     private final EmployeeService employeeService;
 
     @GetMapping("/company/admin/department/all")
-    public String getHomePage(Model model) {
+    public String getHomePage(Principal principal, Model model) {
 
         List<Department> departments = departmentService.getAllDepartments();
-        
+        String username = principal.getName();
+        Employee employee = employeeService.getEmployeeById(username);
+        model.addAttribute("employeeId", employee.getEmail());
+        model.addAttribute("firstname", employee.getFirstname());
+        model.addAttribute("imageUrl", employee.getImageUrl());
         model.addAttribute("departments", departments);
         return "departments";
     }
@@ -35,10 +40,15 @@ public class DepartmentController {
     }
 
     @GetMapping("/company/admin/department/add")
-    public String getAddDepartmentPage(Model model) {
-
+    public String getAddDepartmentPage(Model model, Principal principal) {
+        String username = principal.getName();
+        Employee employee = employeeService.getEmployeeById(username);
+        
         Department department = new Department();
         model.addAttribute("department", department);
+        model.addAttribute("firstname", employee.getFirstname());
+        model.addAttribute("imageUrl", employee.getImageUrl());
+        model.addAttribute("employeeId", employee.getEmail());
         return "addDepartment";
     }
 
@@ -63,8 +73,6 @@ public class DepartmentController {
 
     @PostMapping("/company/admin/department/add/employee/{departmentId}")
     public String addEmployeeToDepartment(Employee employee, @PathVariable("departmentId") int departmentId) {
-        System.out.println(departmentId);
-        System.out.println(employee.getFirstname());
         employeeService.saveEmployee(employee);
         Employee theEmployee = employeeService.getEmployeeById(employee.getEmail());
         departmentService.addEmployeeToDepartment(theEmployee, departmentId);

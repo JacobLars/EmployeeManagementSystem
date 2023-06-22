@@ -10,14 +10,14 @@
     </head>
     <body>
         
-           <nav>
+             <nav>
                 <ul>
+                    <li><a th:href="@{'/company/admin/home'}">Home</a></li>
                     <li><a th:href="@{'/company/admin/department/all'}">Departments</a></li>
                     <li><a th:href="@{'/company/admin/department/add'}">Add Department</a></li>
                     <li><a th:href="@{'/company/admin/employees/all'}">Employees</a></li>
-                    <li  id="logout-button"><a th:href="@{'/logout'}">Logout</a><li>
+                   <li><a th:href="@{'/company/employees/task/add/' + ${employeeId}}">Report Activity</a></li>
                 </ul>
-                
             </nav>
         
         <form class="container-fluid text-center" th:action="@{/company/admin/department/save}" method="post" th:object="${department}"

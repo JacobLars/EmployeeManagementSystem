@@ -119,6 +119,13 @@ public class Employee {
         this.timeReports = timeReports;
     }
     
+    public void addTimeReport(TimeReport timeReport){
+        timeReports.add(timeReport);
+    }
     
+    
+    public void deleteTimeReport(TimeReport timeReport){
+        timeReports.remove(timeReport);
+    }
     
 }

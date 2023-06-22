@@ -18,7 +18,7 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
             Authentication authentication) throws IOException, ServletException {
         
           if (authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"))) {
-            setDefaultTargetUrl("/company/admin/department/all");
+            setDefaultTargetUrl("/company/admin/home");
         } else if (authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_EMPLOYEE"))) {
             setDefaultTargetUrl("/company/employee/home");
         }

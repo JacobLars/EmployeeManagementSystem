@@ -10,24 +10,40 @@
     </head>
     <body>
 
-        <form id="add-department" class="container-fluid text-center" th:action="@{/company/employees/task/save}" method="post" th:object="${timeReport}"
+        <div id="employee-info">
+            <img id="employee-image" th:src="${employee.imageUrl}">
+            <p style="width: 100px;" th:text="'Welcome ' + ${employee.firstname} + '!'"></p>
+            <a id='logout-button' th:href="@{/logout}">Logout</a>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a th:href="@{'/company/admin/home'}">Home</a></li>
+                <li><a th:href="@{'/company/admin/department/all'}">Departments</a></li>
+                <li><a th:href="@{'/company/admin/department/add'}">Add Department</a></li>
+                <li><a th:href="@{'/company/admin/employees/all'}">Employees</a></li>
+                <li><a th:href="@{'/company/employees/task/add/' + ${employeeId}}">Report Activity</a></li>
+            </ul>
+        </nav>
+
+        <form id="add-department" class="container-fluid text-center" th:action="@{'/company/employees/task/save/' + ${employee.email}}" method="post" th:object="${timeReport}"
               style="max-width: 700px; margin: 0 auto;">
 
-            <div class="border rounded p-3">
+            <div id='form-div' class="border rounded p-3">
 
-                <div class="form-group row">
-                    
+                <div  class="form-group row">
+
                     <div id="add-div" class="col-sm-6">
                         <label id="name-label" class="col-sm-4 col-form-label">Date</label>
                         <input type="date" th:field="*{date}" class="form-control"/>
-                        
+
                         <label id="name-label" class="col-sm-4 col-form-label">Hours</label>
                         <input type="number" th:field="*{hours}" class="form-control"/>
-                        
+
                         <label id="name-label" class="col-sm-4 col-form-label">Task(s)</label>
                         <input type="text" th:field="*{tasks}" class="form-control"/>
 
-                        
+
                     </div>
 
 
@@ -41,3 +57,82 @@
 
     </body>
 </html>
+<style>
+    body{
+        background-image: url('https://wallpaperaccess.com/full/733878.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+
+    }
+    #employee-info{
+        margin-left: 2%;
+    }
+
+    #employee-info p{
+        color: white;
+    }
+
+    #employee-image{
+        height: 80px;
+        width: 80px;
+        border-radius: 50%;
+    }
+
+    #logout-button{
+        color: black;
+        background-color: #db3d3d;
+        padding: 5px;
+
+    }
+
+    #logout-button:hover{
+        background-color: #c23232;
+    }
+    ul {
+        list-style-type: none;
+        margin: 0 auto;
+        margin-bottom: 10px;
+        padding: 0;
+        overflow: hidden;
+        display: flex;
+        width: 50%;
+        justify-content: center;
+        background-color: #333;
+
+    }
+
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+    li a:hover {
+        background-color: #111;
+    }
+
+
+    #add-div label{
+        margin-left: 15%;
+    }
+
+    #add-div input{
+        margin-left: 50%;
+    }
+    #form-div{
+
+        background-color: #e8e8e8;
+    }
+
+    input{
+        margin: 0 auto;
+    }
+
+    #submit-button{
+        float: left;
+        margin-left: 24%;
+        margin-top: 5px;
+    }
+</style>
