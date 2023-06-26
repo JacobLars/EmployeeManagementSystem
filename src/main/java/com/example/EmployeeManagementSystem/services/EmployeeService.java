@@ -61,7 +61,7 @@ public class EmployeeService {
         employee.setDepartment(null);
     }
 
-    List<TimeReport> timeReports = new ArrayList<>(employee.getTimeReports()); // Create a copy of the timeReports collection
+    List<TimeReport> timeReports = new ArrayList<>(employee.getTimeReports());
     
     for (TimeReport timeReport : timeReports) {
         employee.deleteTimeReport(timeReport);

@@ -19,7 +19,14 @@ public class DepartmentController {
 
     private final DepartmentService departmentService;
     private final EmployeeService employeeService;
-
+    
+    
+    public DepartmentController(DepartmentService companyService,
+            EmployeeService employeeService) {
+        this.departmentService = companyService;
+        this.employeeService = employeeService;
+    }
+    
     @GetMapping("/company/admin/department/all")
     public String getHomePage(Principal principal, Model model) {
 
@@ -33,11 +40,6 @@ public class DepartmentController {
         return "departments";
     }
 
-    public DepartmentController(DepartmentService companyService,
-            EmployeeService employeeService) {
-        this.departmentService = companyService;
-        this.employeeService = employeeService;
-    }
 
     @GetMapping("/company/admin/department/add")
     public String getAddDepartmentPage(Model model, Principal principal) {

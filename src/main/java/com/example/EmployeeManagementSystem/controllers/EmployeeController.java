@@ -73,7 +73,7 @@ public class EmployeeController {
         String username = principal.getName();
         Employee employee = employeeService.getEmployeeById(username);
         Month month = LocalDate.now().getMonth();
-        
+
         List<TimeReport> reportsFromCurrentMonth
                 = timeReportService.getEmployeesTimeReportByCurrentMonth(employee);
 
@@ -130,8 +130,8 @@ public class EmployeeController {
         return "redirect:/company/admin/employees/all";
     }
 
-    @GetMapping("/company/employees/task/add/{employeeId}")
-    public String getAddTaskPage(Model model,
+    @GetMapping("/company/admin/report/add/{employeeId}")
+    public String getAddAdminReportPage(Model model,
             @PathVariable("employeeId") String employeeId,
             Principal principal) {
 
@@ -141,7 +141,20 @@ public class EmployeeController {
         model.addAttribute("employee", employee);
         model.addAttribute("timeReport", timeReport);
 
-        return "addTask";
+        return "addAdminReport";
+    }
+
+    @GetMapping("/company/employees/report/add/{employeeId}")
+    public String getEmployeeReportPage(Model model, 
+            @PathVariable("employeeId") String employeeId,
+            Principal principal) {
+             Employee employee = employeeService.getEmployeeById(employeeId);
+        TimeReport timeReport = new TimeReport();
+
+        model.addAttribute("employee", employee);
+        model.addAttribute("timeReport", timeReport);
+
+        return "addEmployeeTimeReport";
     }
 
     @PostMapping("/company/employees/task/save/{employeeId}")
