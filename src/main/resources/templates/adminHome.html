@@ -12,7 +12,10 @@
             <div id="employee-info">
                 <img id="employee-image" th:src="${imageUrl}">
                 <p style="width: 100px;" th:text="'Welcome ' + ${firstname} + '!'"></p>
+                <div id="user-operations">
                 <a id='logout-button' th:href="@{/logout}">Logout</a>
+                <a id="change-password" th:href="@{/company/employees/change-password}">Change Password</a>
+                </div>
             </div>
             <nav>
                 <ul>
@@ -81,14 +84,35 @@
             width: 80px;
             border-radius: 50%;
         }
-
+        
+        #user-operations{
+            display: flex;
+            flex-direction: column;
+        }
+        
+        #user-operations a{
+            width: 8%;
+            margin-top: 5px;
+        }
+        
         #logout-button{
             color: black;
             background-color: #db3d3d;
             padding: 5px;
 
         }
+        
+        #change-password{
+            color: black;
+            background-color: #79c1ed;
+            padding: 5px;
 
+        }
+        
+        #change-password:hover{
+            background-color: #6dabd1;
+        }
+        
         #logout-button:hover{
             background-color: #c23232;
         }

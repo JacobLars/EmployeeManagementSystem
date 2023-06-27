@@ -2,6 +2,7 @@ package com.example.EmployeeManagementSystem.controllers;
 
 import com.example.EmployeeManagementSystem.entities.Employee;
 import com.example.EmployeeManagementSystem.entities.TimeReport;
+import com.example.EmployeeManagementSystem.security.ChangePassword;
 import com.example.EmployeeManagementSystem.services.EmployeeService;
 import com.example.EmployeeManagementSystem.services.TimeReportService;
 import java.security.Principal;
@@ -28,7 +29,7 @@ public class EmployeeController {
         this.employeeService = employeeService;
         this.timeReportService = timeReportService;
     }
-
+    
     @GetMapping("/company/admin/home")
     public String getAdminHomePage(Model model, Principal principal) {
         String username = principal.getName();
@@ -145,10 +146,12 @@ public class EmployeeController {
     }
 
     @GetMapping("/company/employees/report/add/{employeeId}")
-    public String getEmployeeReportPage(Model model, 
+    public String getEmployeeReportPage(
+            Model model,
             @PathVariable("employeeId") String employeeId,
             Principal principal) {
-             Employee employee = employeeService.getEmployeeById(employeeId);
+
+        Employee employee = employeeService.getEmployeeById(employeeId);
         TimeReport timeReport = new TimeReport();
 
         model.addAttribute("employee", employee);
@@ -158,7 +161,9 @@ public class EmployeeController {
     }
 
     @PostMapping("/company/employees/task/save/{employeeId}")
-    public String saveTimeReportToEmployee(TimeReport timeReport, @PathVariable("employeeId") String employeeId) {
+    public String saveTimeReportToEmployee(
+            TimeReport timeReport,
+            @PathVariable("employeeId") String employeeId) {
 
         Employee employee = employeeService.getEmployeeById(employeeId);
         timeReportService.saveTimeReport(timeReport);
@@ -188,4 +193,52 @@ public class EmployeeController {
         return "employeeTimeReports";
     }
 
+    @GetMapping("/company/employees/change-password")
+    public String getChangePasswordPage(
+            Model model,
+            Principal principal) {
+
+        Employee loggedInEmployee = employeeService.getEmployeeById(principal.getName());
+        ChangePassword newPassword = new ChangePassword();
+
+        model.addAttribute("firstname", loggedInEmployee.getFirstname());
+        model.addAttribute("imageUrl", loggedInEmployee.getImageUrl());
+        model.addAttribute("employeeId", loggedInEmployee.getEmail());
+        model.addAttribute("newPassword", newPassword);
+        return "changePassword";
+    }
+
+    @PostMapping("/company/employees/change-password/save/{employeeId}")
+    public String changePassword(
+            @PathVariable("employeeId") String employeeId,
+            ChangePassword changePassword) {
+
+        Employee employee = employeeService.getEmployeeById(employeeId);
+        
+        boolean isMatchingPassword = employeeService
+                .checkPassword(changePassword.getCurrentPassword(), employee);
+        
+        if(isMatchingPassword == false){
+            return "redirect:/company/employees/change-password";
+        }
+        
+        employee.setPassword(changePassword.getNewPassword());
+        
+        employeeService.saveEmployee(employee);
+        
+        return "redirect:/logout";
+    }
+    
+    @GetMapping("/company/employees/back")
+    public String getPreviousPage(Principal principal, Model model){
+        
+        Employee employee = employeeService.getEmployeeById(principal.getName());
+            
+        if(employee.isIsAdmin()){
+            return getAdminHomePage(model, principal);
+        }
+        
+        return getHomepage(principal, model);
+    }
+    
 }

@@ -19,14 +19,13 @@ public class DepartmentController {
 
     private final DepartmentService departmentService;
     private final EmployeeService employeeService;
-    
-    
+
     public DepartmentController(DepartmentService companyService,
             EmployeeService employeeService) {
         this.departmentService = companyService;
         this.employeeService = employeeService;
     }
-    
+
     @GetMapping("/company/admin/department/all")
     public String getHomePage(Principal principal, Model model) {
 
@@ -40,12 +39,11 @@ public class DepartmentController {
         return "departments";
     }
 
-
     @GetMapping("/company/admin/department/add")
     public String getAddDepartmentPage(Model model, Principal principal) {
         String username = principal.getName();
         Employee employee = employeeService.getEmployeeById(username);
-        
+
         Department department = new Department();
         model.addAttribute("department", department);
         model.addAttribute("firstname", employee.getFirstname());
@@ -82,10 +80,17 @@ public class DepartmentController {
     }
 
     @GetMapping("/company/admin/department/{departmentId}/employees")
-    public String getDepartmentEmployees(Model model, @PathVariable("departmentId") int departmentId) {
+    public String getDepartmentEmployees(Model model,
+            @PathVariable("departmentId") int departmentId,
+            Principal principal) {
+
+        Employee employee = employeeService.getEmployeeById(principal.getName());
 
         List<Employee> employees = departmentService.getDepartmentEmployees(departmentId);
         model.addAttribute("employees", employees);
+        model.addAttribute("firstname", employee.getFirstname());
+        model.addAttribute("imageUrl", employee.getImageUrl());
+        model.addAttribute("employeeId", employee.getEmail());
 
         return "employees";
     }

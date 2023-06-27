@@ -89,5 +89,12 @@ public class EmployeeService {
 
         return sortedTimeReports;
     }
-
+    
+    
+    public boolean checkPassword(String password, Employee employee){
+        
+        return bCryptPasswordEncoder.matches(password, employee.getPassword());
+        
+    }
+    
 }
