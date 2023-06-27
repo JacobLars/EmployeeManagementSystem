@@ -1,6 +1,5 @@
 package com.example.EmployeeManagementSystem.entities;
 
-import java.time.LocalDate;
 import javax.persistence.ManyToOne;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -54,4 +54,8 @@ public class TimeReportService {
         
     }
     
+    public List<TimeReport> getAllTimeReports(){
+        return timeReportRepository.findAll();
+    }
+    
 }

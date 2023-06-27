@@ -60,11 +60,17 @@ public class DepartmentController {
     }
 
     @GetMapping("/company/admin/department/edit/{departmentId}")
-    public String getEditDepartmentPage(@PathVariable("departmentId") int departmentId, Model model) {
+    public String getEditDepartmentPage(
+            @PathVariable("departmentId") int departmentId, Model model,
+            Principal principal) {
 
+        Employee loggedInEmployee = employeeService.getEmployeeById(principal.getName());
         Department department = departmentService.getDepartmentById(departmentId);
         Employee employee = new Employee();
-
+        System.out.println(principal.getName());
+        model.addAttribute("employeeId", principal.getName());
+        model.addAttribute("firstname", loggedInEmployee.getFirstname());
+        model.addAttribute("imageUrl", loggedInEmployee.getImageUrl());
         model.addAttribute("employee", employee);
         model.addAttribute("department", department);
         model.addAttribute("departmentId", departmentId);

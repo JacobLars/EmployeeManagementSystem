@@ -29,7 +29,7 @@ public class EmployeeController {
         this.employeeService = employeeService;
         this.timeReportService = timeReportService;
     }
-    
+
     @GetMapping("/company/admin/home")
     public String getAdminHomePage(Model model, Principal principal) {
         String username = principal.getName();
@@ -68,7 +68,7 @@ public class EmployeeController {
         return "employeehome";
     }
 
-    @GetMapping("/company/employee/home")
+    @GetMapping("/company/employees/home")
     public String getHomepage(Principal principal, Model model) {
 
         String username = principal.getName();
@@ -84,6 +84,10 @@ public class EmployeeController {
         model.addAttribute("timeReports", reportsFromCurrentMonth);
         model.addAttribute("month", month);
         model.addAttribute("allReportsText", "View all reports");
+        
+        if(employee.isIsAdmin()){
+            return "adminhome";
+        }
         return "employeehome";
     }
 
@@ -131,32 +135,22 @@ public class EmployeeController {
         return "redirect:/company/admin/employees/all";
     }
 
-    @GetMapping("/company/admin/report/add/{employeeId}")
-    public String getAddAdminReportPage(Model model,
-            @PathVariable("employeeId") String employeeId,
-            Principal principal) {
-
-        Employee employee = employeeService.getEmployeeById(employeeId);
-        TimeReport timeReport = new TimeReport();
-
-        model.addAttribute("employee", employee);
-        model.addAttribute("timeReport", timeReport);
-
-        return "addAdminReport";
-    }
 
     @GetMapping("/company/employees/report/add/{employeeId}")
     public String getEmployeeReportPage(
             Model model,
             @PathVariable("employeeId") String employeeId,
             Principal principal) {
-
+        
+        Employee loggedInEmployee = employeeService.getEmployeeById(principal.getName());
         Employee employee = employeeService.getEmployeeById(employeeId);
         TimeReport timeReport = new TimeReport();
 
         model.addAttribute("employee", employee);
         model.addAttribute("timeReport", timeReport);
-
+        if(loggedInEmployee.isIsAdmin()){
+            return "addAdminReport";
+        }
         return "addEmployeeTimeReport";
     }
 
@@ -214,31 +208,45 @@ public class EmployeeController {
             ChangePassword changePassword) {
 
         Employee employee = employeeService.getEmployeeById(employeeId);
-        
+
         boolean isMatchingPassword = employeeService
                 .checkPassword(changePassword.getCurrentPassword(), employee);
-        
-        if(isMatchingPassword == false){
+
+        if (isMatchingPassword == false) {
             return "redirect:/company/employees/change-password";
         }
-        
+
         employee.setPassword(changePassword.getNewPassword());
-        
+
         employeeService.saveEmployee(employee);
-        
+
         return "redirect:/logout";
     }
-    
+
     @GetMapping("/company/employees/back")
-    public String getPreviousPage(Principal principal, Model model){
-        
+    public String getPreviousPage(Principal principal, Model model) {
+
         Employee employee = employeeService.getEmployeeById(principal.getName());
-            
-        if(employee.isIsAdmin()){
+
+        if (employee.isIsAdmin()) {
             return getAdminHomePage(model, principal);
         }
-        
+
         return getHomepage(principal, model);
     }
-    
+
+    @GetMapping("/company/time-reports/all")
+    public String getAllEmployeeReports(Model model, Principal principal) {
+
+        List<TimeReport> allTimeReports = timeReportService.getAllTimeReports();
+
+        Employee loggedInEmployee = employeeService.getEmployeeById(principal.getName());
+
+        model.addAttribute("timeReports", allTimeReports);
+        model.addAttribute("firstname", loggedInEmployee.getFirstname());
+        model.addAttribute("imageUrl", loggedInEmployee.getImageUrl());
+        model.addAttribute("employeeId", loggedInEmployee.getEmail());
+        return "allReports";
+    }
+
 }

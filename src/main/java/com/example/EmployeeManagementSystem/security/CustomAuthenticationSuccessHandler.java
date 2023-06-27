@@ -20,7 +20,7 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
           if (authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"))) {
             setDefaultTargetUrl("/company/admin/home");
         } else if (authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ROLE_EMPLOYEE"))) {
-            setDefaultTargetUrl("/company/employee/home");
+            setDefaultTargetUrl("/company/employees/home");
         }
         super.onAuthenticationSuccess(request, response, authentication); 
     }

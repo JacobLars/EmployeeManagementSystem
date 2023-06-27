@@ -12,47 +12,44 @@
             <div id="employee-info">
                 <img id="employee-image" th:src="${imageUrl}">
                 <p style="width: 100px;" th:text="'Welcome ' + ${firstname} + '!'"></p>
-                <div id="user-operations">
-                    <a id='logout-button' th:href="@{/logout}">Logout</a>
-                    <a id="change-password" th:href="@{/company/employees/change-password}">Change Password</a>
-                </div>
+                <a id='logout-button' th:href="@{/logout}">Logout</a>
             </div>
             <nav>
                 <ul>
-                    <li><a th:href="@{'/company/admin/home'}">Home</a></li>
-                    <li><a th:href="@{'/company/admin/department/all'}">Departments</a></li>
-                    <li><a th:href="@{'/company/admin/department/add'}">Add Department</a></li>
-                    <li><a th:href="@{'/company/admin/employees/all'}">Employees</a></li>
+                    <li><a th:href="@{'/company/employees/home'}">Home</a></li>
+
                     <li><a th:href="@{'/company/employees/report/add/' + ${employeeId}}">Report Activity</a></li>
                     <li><a th:href="@{/company/time-reports/all}">View Other's Reports</a></li>
                 </ul>
             </nav>
 
             <div>
-
-                <table class="table" id="report-table">
+                <table class="table" id="employees-reports-table">
                     <thead class="table-responsive">
-
-                    <div id="header-div">
-                        <p th:text="${month}"></p>
-                        <a id='all-reports-btn' th:href="@{/company/employees/task/all}" th:text='${allReportsText}'>a</a>
-                    </div>
-                    <tr>
-                        <th>Date</th>
-                        <th>Hours</th>
-                        <th>Tasks</th>
-                    </tr>
+                        <tr>
+                            <th></th>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                            <th>Department</th>
+                            <th>Date</th>
+                            <th>Hours</th>
+                            <th>Tasks</th>
+                        </tr>
                     </thead>
 
                     <tbody class="table-light">
-                    <th:block th:each="timeReport : ${timeReports}">
+                    <th:block th:each="report : ${timeReports}">
+
                         <tr>
-
-                            <td th:text="${timeReport.date}"></td>
-                            <td th:text="${timeReport.hours}"></td>
-                            <td th:text="${timeReport.tasks}"></td>
-
-
+                            <td>
+                                <img class="employee-table-image" th:src="${report.employee.imageUrl}">
+                            </td>
+                            <td th:text="${report.employee.firstname}"></td>
+                            <td th:text="${report.employee.lastname}"></td>
+                            <td th:text="${report.employee.department.name}"></td>
+                            <td th:text="${report.date}"></td>
+                            <td th:text="${report.hours}"></td>
+                            <td th:text="${report.tasks}"></td>
                         </tr>
                     </th:block>
 
@@ -61,8 +58,6 @@
                 </table>
 
             </div>
-
-
         </body>
     </html>
     <style>
@@ -103,21 +98,6 @@
 
         }
 
-        #change-password{
-            color: black;
-            background-color: #79c1ed;
-            padding: 5px;
-
-        }
-
-        #change-password:hover{
-            background-color: #6dabd1;
-        }
-
-        #logout-button:hover{
-            background-color: #c23232;
-        }
-
         ul {
             list-style-type: none;
             margin: 0 auto;
@@ -131,10 +111,6 @@
 
         }
 
-        li {
-
-        }
-
         li a {
             display: block;
             color: white;
@@ -145,42 +121,22 @@
 
         li a:hover {
             background-color: #111;
-            color: white;
         }
 
-        #report-table{
+
+        #employees-reports-table{
             width: 50%;
             margin: 0 auto;
-
-        }
-
-
-        #header-div{
-            background-color: #333;
-            width: 15%;
-            margin-left: 25%;
-            margin-top: 2%;
-            padding: 1px;
-        }
-
-        #header-div p{
-            color: white;
-            font-size: larger;
-            margin: 1px;
-
-        }
-
-        #all-reports-btn{
-            text-decoration: underline;
-            color: white;
-        }
-
-        #all-reports-btn:hover{
-            color: blue;
         }
 
         th{
-            background-color: #333;
             color: white;
+            background-color: #333;
+
+        }
+        .employee-table-image{
+            height: 30px;
+            width: 30px;
+            border-radius: 50%;
         }
     </style>
